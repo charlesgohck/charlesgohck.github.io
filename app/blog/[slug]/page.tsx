@@ -33,6 +33,16 @@ interface RelatedPost {
   slug: string;
 }
 
+export async function generateStaticParams() {
+  try {
+    const result = await wisp.getPosts({ limit: "all" });
+    return result.posts.map((post) => ({ slug: post.slug }));
+  } catch (error) {
+    console.error("Error fetching slugs for static params:", error);
+    return [];
+  }
+}
+
 async function getBlogPost(slug: string): Promise<BlogPost | null> {
   try {
     const result = await wisp.getPost(slug);
