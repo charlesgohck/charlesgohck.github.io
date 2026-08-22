@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -86,12 +87,8 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
-        <Script
-          defer
-          src={process.env.UMAMI_SCRIPT_URL}
-          data-website-id={process.env.UMAMI_WEBSITE_ID}
-          strategy="afterInteractive"
-        />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
